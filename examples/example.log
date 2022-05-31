@@ -3,4 +3,5 @@
 2022-04-28T08:47:47.260Z  INFO rust::module::different_path: User d6ffc984-d323-11ec-9d64-0242ac120002 just signed in
 2022-04-28T08:47:47.260Z  ERROR rust::module::path: Error msg=Some("this is bad!?!#!")
 2022-04-28T08:47:47.260Z  TRACE rust::module::path: Info
+2022-04-28T08:47:47.260Z  TRACE rust::module::path: 123 true
 

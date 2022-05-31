@@ -166,11 +166,7 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "ipv4"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "uuid"
+            "name": "constant"
           },
           {
             "type": "SYMBOL",
@@ -183,13 +179,34 @@
         ]
       }
     },
-    "uuid": {
+    "_uuid": {
       "type": "PATTERN",
       "value": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
     },
-    "ipv4": {
+    "_ipv4": {
       "type": "PATTERN",
       "value": "([0-9]{1,3}\\.){3}[0-9]{1,3}(\\/([0-9]|[1-2][0-9]|3[0-2]))?"
+    },
+    "constant": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_ipv4"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_uuid"
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\d+"
+        },
+        {
+          "type": "PATTERN",
+          "value": "true|false"
+        }
+      ]
     },
     "_non_newline_whitespace": {
       "type": "PATTERN",

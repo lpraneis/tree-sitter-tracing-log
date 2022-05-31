@@ -52,8 +52,7 @@ module.exports = grammar({
 		// log message
 		message: $ => repeat1(
 			choice(
-				$.ipv4,
-				$.uuid,
+				$.constant,
 				$.string,
 				$._any,
 			)
@@ -61,9 +60,15 @@ module.exports = grammar({
 		// Add any additional captures here!
 		
 		// simple uuid
-		uuid: $ => /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/,
+		_uuid: $ => /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/,
 		// ipv4 with optional subnet
-		ipv4 : $ => /([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?/,
+		_ipv4 : $ => /([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?/,
+		constant : $ => choice(
+			$._ipv4,
+			$._uuid,
+			/\d+/,
+			/true|false/,
+		),
 
 		// spacing
 		_non_newline_whitespace: ($) => /[\t ]+/,

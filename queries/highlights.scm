@@ -7,7 +7,4 @@
 
 (string) @string
 
-[
-(ipv4)
-(uuid)
-] @number
+(constant) @number
