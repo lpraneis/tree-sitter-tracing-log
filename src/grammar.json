@@ -1,5 +1,5 @@
 {
-  "name": "log",
+  "name": "tracinglog",
   "rules": {
     "logs": {
       "type": "REPEAT",

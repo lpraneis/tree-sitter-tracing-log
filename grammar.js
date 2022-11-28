@@ -1,5 +1,5 @@
 module.exports = grammar({
-	name: 'log',
+	name: 'tracinglog',
 	
   rules: {
 		logs: $ => repeat(seq($._logline, optional("\n"))),

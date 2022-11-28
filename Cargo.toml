@@ -1,8 +1,8 @@
 [package]
-name = "tree-sitter-log"
+name = "tree-sitter-tracinglog"
 description = "tracing-log grammar for the tree-sitter parsing library"
 version = "0.0.1"
-keywords = ["incremental", "parsing", "tracing-log"]
+keywords = ["incremental", "parsing", "tracinglog"]
 categories = ["parsing", "text-editors"]
 repository = "https://github.com/lpraneis/tree-sitter-tracing-log"
 edition = "2018"
