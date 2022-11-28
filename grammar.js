@@ -1,30 +1,40 @@
+const rfc3339_date = /([0-9]+)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])/;
+const rfc3339_delimiter = /[ tT]/;
+const rfc3339_time = /([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9]|60)([.][0-9]+)?/;
+const rfc3339_offset = /([zZ])|([+-]([01][0-9]|2[0-3]):[0-5][0-9])/;
+
+const module_path = /\s?[-_a-zA-Z0-9:]*/;
+const newline = /\r?\n/;
+
 module.exports = grammar({
 	name: 'tracinglog',
 	
   rules: {
-		logs: $ => repeat(seq($._logline, optional("\n"))),
+		logs: $ => repeat(choice($._logline, newline, $.comment)),
 
 		// Match an individual log line
 		_logline : $ => seq (
-			$.date,
-			$.spacing,
+			$.log_date,
+			$.log_time,
 			$.level,
-			$.spacing,
 			$.module_name,
-			$.spacing,
-			$.message
+			repeat1($.important)
 		),
-		// date formats supported
-		date : $ => choice(
-			$.utc_tz
+		log_date : $ => $.year_month_date,
+		log_time : $ => choice(
+			$.time_with_offset,
+			$.time_without_offset
 		),
-		utc_tz: $ => seq(
-			$.y_m_d,
-			$.h_m_s_subs,
-		),
-		y_m_d: $ => /[0-9]{4}-[0-9]{2}-[0-9]{2}T/,
-		h_m_s_subs: $ => /[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}Z/,
-
+		year_month_date: $ => token(seq(rfc3339_date, rfc3339_delimiter)),
+		time_with_offset: $ => token(seq(rfc3339_time, rfc3339_offset)),
+		time_without_offset: $ => token(rfc3339_time),
+		// comment in annotated logs
+		comment: $ =>
+      token(seq(
+        "#",
+				/[^\n]+/,
+				newline
+      )),
 
 		// tracing levels
 		level: $ => choice(
@@ -35,6 +45,7 @@ module.exports = grammar({
 		bad_level: $ => choice(
         'WARN',
 			  'ERROR',
+			  'FATAL',
 		),
 		// info levels
 		ok_level: $ => choice (
@@ -43,20 +54,21 @@ module.exports = grammar({
 			  'TRACE',
 		),
 		// name of the module 
-		module_name : $ => /[-_a-zA-Z0-9:]*/,
-		// match anything that could be in a log line
-		_any: $ =>  /./,
-		// quote encased string
-		string: $ => seq( '"', repeat($._any), '"'),
+		module_name : $ => module_path,
 
-		// log message
-		message: $ => repeat1(
-			choice(
-				$.constant,
-				$.string,
-				$._any,
-			)
+		// quoted string
+		string: $ => choice(
+      seq(
+        '"',
+        repeat(token.immediate(prec(1, /[^"\n]+/)),),
+        '"'
+      ),
+    ),
+		important: $ => choice(
+			$.constant,
+			$.string
 		),
+		
 		// Add any additional captures here!
 		
 		// simple uuid
@@ -66,12 +78,9 @@ module.exports = grammar({
 		constant : $ => choice(
 			$._ipv4,
 			$._uuid,
-			/\d+/,
+			/\s\d+/,
 			/true|false/,
 		),
 
-		// spacing
-		_non_newline_whitespace: ($) => /[\t ]+/,
-		spacing: $ => repeat1($._non_newline_whitespace),
   }
 });

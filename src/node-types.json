@@ -10,7 +10,7 @@
     "fields": {}
   },
   {
-    "type": "date",
+    "type": "important",
     "named": true,
     "fields": {},
     "children": {
@@ -18,7 +18,11 @@
       "required": true,
       "types": [
         {
-          "type": "utc_tz",
+          "type": "constant",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         }
       ]
@@ -44,6 +48,40 @@
     }
   },
   {
+    "type": "log_date",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "year_month_date",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "log_time",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "time_with_offset",
+          "named": true
+        },
+        {
+          "type": "time_without_offset",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "logs",
     "named": true,
     "fields": {},
@@ -52,7 +90,11 @@
       "required": false,
       "types": [
         {
-          "type": "date",
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "important",
           "named": true
         },
         {
@@ -60,34 +102,15 @@
           "named": true
         },
         {
-          "type": "message",
+          "type": "log_date",
+          "named": true
+        },
+        {
+          "type": "log_time",
           "named": true
         },
         {
           "type": "module_name",
-          "named": true
-        },
-        {
-          "type": "spacing",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "message",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "constant",
-          "named": true
-        },
-        {
-          "type": "string",
           "named": true
         }
       ]
@@ -99,37 +122,9 @@
     "fields": {}
   },
   {
-    "type": "spacing",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "string",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "utc_tz",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "h_m_s_subs",
-          "named": true
-        },
-        {
-          "type": "y_m_d",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "\n",
-    "named": false
   },
   {
     "type": "\"",
@@ -141,6 +136,10 @@
   },
   {
     "type": "ERROR",
+    "named": false
+  },
+  {
+    "type": "FATAL",
     "named": false
   },
   {
@@ -156,7 +155,7 @@
     "named": false
   },
   {
-    "type": "h_m_s_subs",
+    "type": "comment",
     "named": true
   },
   {
@@ -164,7 +163,15 @@
     "named": true
   },
   {
-    "type": "y_m_d",
+    "type": "time_with_offset",
+    "named": true
+  },
+  {
+    "type": "time_without_offset",
+    "named": true
+  },
+  {
+    "type": "year_month_date",
     "named": true
   }
 ]
