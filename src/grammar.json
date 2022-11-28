@@ -11,10 +11,6 @@
             "name": "_logline"
           },
           {
-            "type": "PATTERN",
-            "value": "\\r?\\n"
-          },
-          {
             "type": "SYMBOL",
             "name": "comment"
           }

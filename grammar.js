@@ -13,7 +13,7 @@ module.exports = grammar({
 	name: 'tracinglog',
 
 	rules: {
-		logs: $ => repeat(choice($._logline, newline, $.comment)),
+		logs: $ => repeat(choice($._logline, $.comment)),
 
 		// Match an individual log line
 		_logline : $ => seq (
@@ -21,7 +21,7 @@ module.exports = grammar({
 			$.log_time,
 			$.level,
 			$.module_name,
-			repeat1($._important)
+			repeat1($._important),
 		),
 		log_date : $ => $.year_month_date,
 		log_time : $ => choice(
@@ -70,7 +70,7 @@ module.exports = grammar({
 
 		_important: $ => choice(
 			$.constant,
-			$.quoted_string
+			$.quoted_string,
 		),
 
 		// uuid with or without separators
