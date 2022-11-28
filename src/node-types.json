@@ -10,25 +10,6 @@
     "fields": {}
   },
   {
-    "type": "important",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "constant",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "level",
     "named": true,
     "fields": {},
@@ -94,7 +75,7 @@
           "named": true
         },
         {
-          "type": "important",
+          "type": "constant",
           "named": true
         },
         {
@@ -112,6 +93,10 @@
         {
           "type": "module_name",
           "named": true
+        },
+        {
+          "type": "quoted_string",
+          "named": true
         }
       ]
     }
@@ -122,7 +107,7 @@
     "fields": {}
   },
   {
-    "type": "string",
+    "type": "quoted_string",
     "named": true,
     "fields": {}
   },

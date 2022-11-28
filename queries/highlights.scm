@@ -4,5 +4,5 @@
 (log_time) @constant
 (module_name) @function
 (comment) @comment
-(string) @string
+(quoted_string) @string
 (constant) @number
